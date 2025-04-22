@@ -1,0 +1,26 @@
+---
+title: "Datenanalyse - Laborprotokoll"
+subtitle: "Gruppe 1_b"
+author: Jan Aspan, Felix Bachmann, Niklas Grundner, Julian Resch, Sebastian Sarria Suarez
+format: 
+  html:
+    embed-resources: true
+    code-fold: true
+editor: visual
+date: last-modified
+number-sections: true
+number-depth: 2
+date-format: "DD. MMMM YYYY"
+---
+
+## Abstract
+From DNA samples to taxonomic classification. 
+## Background
+
+## Methods
+
+## Results
+
+## Discussion
+
+## References

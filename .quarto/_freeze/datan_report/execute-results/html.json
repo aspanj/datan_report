@@ -1,0 +1,15 @@
+{
+  "hash": "114ff6e2974ec3bc5e99c716a7188339",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Datenanalyse - Laborprotokoll\"\nsubtitle: \"Gruppe 1_b\"\nauthor: Jan Aspan, Felix Bachmann, Niklas Grundner, Julian Resch, Sebastian Sarria Suarez\nformat: \n  html:\n    embed-resources: true\n    code-fold: true\neditor: visual\ndate: last-modified\nnumber-sections: true\nnumber-depth: 2\ndate-format: \"DD. MMMM YYYY\"\n---\n\n\n\n## Quarto\n\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
