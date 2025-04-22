@@ -14,7 +14,8 @@ date-format: "DD. MMMM YYYY"
 ---
 
 ## Abstract
-From DNA samples to taxonomic classification. .
+From DNA samples to taxonomic classification.
+
 ## Background
 
 ## Methods
