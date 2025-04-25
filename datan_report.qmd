@@ -142,6 +142,8 @@ The most abundant taxa included `Bacillus subtilis` (13%), `Enterococcus faecali
 | Listeria monocytogenes   | 8                        |
 | Saccharomyces cerevisiae | 2                        |
 
+: Taxons and their relative abundance in Sample 4
+
 ## Discussion
 
 ## References
