@@ -17,6 +17,58 @@ date-format: "DD. MMMM YYYY"
 From DNA samples to taxonomic classification.
 
 ## Background
+### Oxford Nanopore Sequencing
+Nanopore sequencing (often referred to as Oxford Nanopore Sequencing or ONT sequencing) is a single-molecule technology in which individual strands of DNA or RNA are pulled through a biological nanopore channel in an electrically insulating membrane. An applied voltage (~180 mV) generates a constant ionic base current; as soon as a nucleic acid segment passes through the narrowest part of the pore, the combination of about five consecutive bases located there changes the electrical resistance. These characteristic current fluctuations (‘squiggles’) are digitised at a kHz sampling rate and then translated into nucleotide sequences using deep neuronal-based base callers (e.g. guppy flip-flop RNN or Dorado). An upstream motor protein - a modified helicase/polymerase - regulates the translocation speed (70 - 450 bp s-¹ with current R9.4 chemistry) and removes double strands. The method works purely electrically, does not require fluorescent dyes or PCR steps and therefore enables extremely long reads (record-verified > 2 Mbp), real-time data flow and the immediate detection of epigenetic base modifications and native RNA. Today's commonly used por generations (R9.4, R10.3) achieve raw read error rates of 5 - 10 % and consensus accuracies > 99.9 % after polishing.[1][2]
+
+#### Metrics for performance evaluation 
+Current benchmarks essentially use four key figures, partly already defined in the Wick paper, now formalised:[3][4]
+
+ 1. read accuracy: median sequence identity of individual reads against a reference, usually as Phred-Q (-10 log₁₀ error) or "modal accuracy".
+
+ 2. consensus accuracy: Identity of a consensus generated from many reads; important for assemblies/variant calling.
+
+ 3. Failure rate: Percentage of raw streams that cannot be decoded by the base caller.  
+ 
+ 4. throughput / speed: Bases per second on defined hardware (GPU/CPU).   In addition, homopolymer errors, modified-base detection F1 score (for Remora/Dorado) and computational cost (watt-hours per Gb) are shown in more recent work.
+
+### Metagenom
+A metagenome is the entirety of all genetic sequences obtained directly from a complex sample (such as soil, seawater or the human gut). Instead of first isolating individual microorganisms in pure culture, the entire DNA or RNA mixture is extracted and sequenced; this provides an overview of all members of the community and their genetic potential in a single step.[5] 
+
+Metagenomes are being analysed because they answer questions that can hardly or not at all be solved with classical culture methods:
+
+•	Uncovering hidden biodiversity: It is estimated that more than 90 % of the microbial world cannot (or can only with difficulty) be cultivated; metagenomic approaches open up this ‘dark matter’ of the microbiome.[6]
+
+•	Understanding ecological functions: By analysing the enzymes encoded in the metagenome, it is possible to reconstruct which metabolic pathways take place in a habitat and how microbes influence global cycles (carbon, nitrogen, etc.).[7]
+
+•	Medical diagnostics and microbiome research: In the human body, metagenomics helps to detect pathogens or resistance genes without prior knowledge and to uncover connections between dysbioses and diseases.[8]
+
+•	Biotechnological treasure hunt: Novel enzymes and bioactive substances originate from environmental metagenomes, which can be used in industry, environmental technology or pharmaceuticals.[9]
+
+•	Environmental and process monitoring: Sequence-based monitoring of wastewater, fermenters or drinking water systems enables the early detection of contamination or process disruptions.[10]
+
+•	Evolutionary insights: Time series or sediment samples show how microbial communities genetically adapt to climate and environmental changes.[11][12]
+ 
+### Taxonomic classification
+Taxonomic classification is the computer-aided step in which sequence reads or longer contigs of a biological sample are assigned to a hierarchical category of life (i.e. species, genus, family, etc.). In practice, classification follows directly after sequencing and answers the question: ‘Which organisms (or genes) are in my data set?’[13]
+
+Read-based classification assigns each raw read directly to a reference database. This is fast and can be applied even with low coverage.[13]
+
+Assembly-based classification first assembles reads into contigs or whole genomes; this increases accuracy and enables functional annotation, but requires higher computing power as a result.[13]
+
+Typical tools such as Centrifuge, Kraken 2 (k-mer-based) or Kaiju (protein-level) are available on many bioinformatics servers. The choice of database and parameters influences the sensitivity and precision of the classification.[13]
+
+Taxonomic classification is important for the following points:
+
+•	Recording biodiversity: Only taxonomic classification turns an anonymous sequence collection into an ecological ‘species list’ and shows which taxa are present or absent in a habitat.[14]
+
+•	Clinical diagnostics & epidemiology: Rapid detection of pathogens or resistance genes in patient samples supports therapeutic decisions and outbreak monitoring.[15]
+
+•	Food and environmental monitoring: Detection of undesirable microorganisms in production chains or waters is often only possible via metagenomic classification.[16]
+
+•	Functional interpretation: Many bioinformatics pipelines combine taxa information with gene annotation steps; this makes it possible to deduce which groups of organisms encode certain metabolic pathways or toxins.[17]
+
+•	Bias control & quality check: By comparing expected and observed taxa, contamination or gaps in reference databases can be recognised; false positives/negatives can be quantified.[13]
+ 
 
 ## Methods
 
@@ -25,3 +77,40 @@ From DNA samples to taxonomic classification.
 ## Discussion
 
 ## References
+
+[1] Wang, Y., Zhao, Y., Bollas, A. et al. Nanopore sequencing technology, bioinformatics and applications. Nat Biotechnol 39, 1348–1365 (2021)
+
+[2] Waldherr M. Data Analysis Lab – Sequencing (Vorlesungsfolien, Master Bioinformatik, SS 2025)
+
+[3] Pagès-Gallego, M., de Ridder, J. Comprehensive benchmark and architectural analysis of deep learning models for nanopore sequencing basecalling. Genome Biol 24, 71 (2023)
+
+[5] Thomas, T., Gilbert, J. & Meyer, F. Metagenomics - a guide from sampling to data analysis. Microb Informatics Exp 2, 3 (2012)
+
+[6] Vigdis Torsvik, Lise Øvreås, Microbial diversity and function in soil: from genes to ecosystems, Current Opinion in Microbiology, Volume 5, Issue 3, Pages 240-245, ISSN 1369-5274 (2002)
+
+[9] Zhang L, Chen F, Zeng Z, Xu M, Sun F, Yang L, Bi X, Lin Y, Gao Y, Hao H, Yi W, Li M, Xie Y. Advances in Metagenomics and Its Application in Environmental Microorganisms. Front Microbiol. (2021)
+
+[10] Prayogo FA, Budiharjo A, Kusumaningrum HP, Wijanarka W, Suprihadi A, Nurhayati N. Metagenomic applications in exploration and development of novel enzymes from nature: a review. J Genet Eng Biotechnol. (2020)
+
+[11] Krinos, A., Bowers, R., Rohwer, R. et al. Time-series metagenomics reveals changing protistan ecology of a temperate dimictic lake. Microbiome 12, 133. (2024)
+
+[12] Garner RE, Gregory-Eaves I, Walsh DA. Sediment Metagenomes as Time Capsules of Lake Microbiomes. mSphere. (2020)
+
+[13] Waldherr M. Data Analysis Lab – Classification (Vorlesungsfolien, Master Bioinformatik, SS 2025)
+
+[14] Kumar Awasthi M, Ravindran B, Sarsaiya S, Chen H, Wainaina S, Singh E, Liu T, Kumar S, Pandey A, Singh L, Zhang Z. Metagenomics for taxonomy profiling: tools and approaches. Bioengineered. (2020)
+
+[15] Jia, X., Hu, L., Wu, M. et al. A streamlined clinical metagenomic sequencing protocol for rapid pathogen identification. Sci Rep 11, 4405 (2021)
+
+[16] Maguire, Meghan & Kase, Julie & Roberson, Dwayne & Muruvanda, Tim & Brown, Eric & Allard, Marc & Musser, Steven & González-Escalona, Narjol. Precision long-read metagenomics sequencing for food safety by detection and assembly of Shiga toxin-producing Escherichia coli in irrigation water (2021)
+
+[17] Maranga M, Szczerbiak P, Bezshapkin V, Gligorijevic V, Chandler C, Bonneau R, Xavier RJ, Vatanen T, Kosciolek T. Comprehensive Functional Annotation of Metagenomes and Microbial Genomes Using a Deep Learning-Based Method. mSystems. (2023)
+
+## Links
+
+[4] Oxford Nanopore Technologies. https://nanoporetech.com/support/software/data-analysis/where-can-i-find-out-more-about-quality-scores [Accessed 24 April 2025]
+
+[7] National Research Council (US) Committee on Metagenomics: Challenges and Functional Applications. The New Science of Metagenomics: Revealing the Secrets of Our Microbial Planet. Washington (DC): National Academies Press (US); 2007. 1, Why Metagenomics? Available from: https://www.ncbi.nlm.nih.gov/books/NBK54011/ [Accessed 24 April 2025]
+
+[8] CD Genomics the Genomics Services Company: Applications of Metagenomics in Biotechnology and Health Care. https://www.cd-genomics.com/applications-of-metagenomics-in-biotechnology-and-health-care.html? [Accessed 24 April 2025]
+
