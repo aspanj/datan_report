@@ -19,12 +19,10 @@ From DNA samples to taxonomic classification.
 
 Known sample origin:
 
-1. oral swab sample
-2. room monitoring sample
-3. single cultured microorganism
-4. ZymoBIOMICS HMW DNA standard from ZymoResearch (Cat.# D6322)
-
-
+1.  oral swab sample
+2.  room monitoring sample
+3.  single cultured microorganism
+4.  ZymoBIOMICS HMW DNA standard from ZymoResearch (Cat.# D6322)
 
 ## Background
 
@@ -90,38 +88,39 @@ Taxonomic classification is important for the following points:
 
 ### Sample preparation and sequencing
 
-Sample preparation was done according to *Rapid sequencing DNA V14 - barcoding (SQK-RBK114.24 or SQK-RBK114.96)*. Any additional required steps are explained in detail in *GRUPPE_1_B_20250212_Labprotocol*. The output of the oxford nanopore basecaller is in the further steps described as "sample".
+Sample preparation was done according to *Rapid sequencing DNA V14 - barcoding (SQK-RBK114.24 or SQK-RBK114.96)*. Additional required steps are explained in detail in *GRUPPE_1_B_20250212_Labprotocol*. The output of the oxford nanopore basecaller is reffered as "sample" in further steps.
 
 ### Data processing pipeline
 
-To get one hand a meaningful result and on the other one a better insight into what effect quality control and filtering has, two slightly different workflows were defined for data analysis.\
-For the first one only minimal quality control and no filtering was used while for the second one further quality control and filtering was used.
+To gain both meaningful result and insight into the effect of quality control and filtering, two slightly different workflows were defined for data analysis.\
+One with minimal quality control and no filtering and a second one with further quality control and filtering.
 
 #### Workflow 1 - minimal QC and no filtering
 
-![Workflow 1 with minimal QC and no filtering.](images/paste-1.png)
+![Workflow 1: From Sample to qc, then to assembly, classification and visualization](images/paste-3.png)
 
-In this minimal workflow the received data was preprocessed with fastp which also has minimal qc functionality integrated (**fastp** is a tool for quality control and preprocessing like filtering short reads. Version: 0.24.0, default parameters, <https://github.com/OpenGene/fastp>).\
-The received result from fastp was afterwards assembled with MetaFlye (**MetaFlye** is a de novo assembler based on Flye and optimized for metagenomic data and is ideally for oxford nanopore reads. Version: 2.1.3, Parameters: , <https://github.com/fenderglass/Flye>).\
-For classification of the reads the Kaken2 database was used and Krona to create the visuals. (**Kraken2** is a taxonomic classification database used to assign reads to taxa. Version: 2.1.3, Parameters: , <https://github.com/DerrickWood/kraken2>) (**Krona** is used to visualize the result as interactive html plots, Version: , Parameters: ,<https://github.com/marbl/Krona/wiki>)
+In this minimal workflow the received data was preprocessed with fastp which also has minimal qc functionality integrated (Version: 0.24.0, default parameters, <https://github.com/OpenGene/fastp>).\
+The output from fastp was then assembled using Raven (**Raven** is a genome assembler designed for error-prone reads like oxford nanopore reads. Version: 1.8.3, Parameters: , <https://github.com/lbcb-sci/raven>).\
+For taxonomic classification, Kaken2 was used and Krona to create the visuals. (**Kraken2** is a taxonomic classification database used to assign reads to taxa. Version: 2.1.3, Parameters: , [https://github.com/DerrickWood/kraken2](#0){.uri}) (**Krona** is used to visualize the result as interactive html plots, Version: 2.8.1, Parameters: ,[https://github.com/marbl/Krona/wiki](#0){.uri})
 
 #### Workflow 2 - extended QC and filtering
 
-![Workflow 2 with extended QC and filtering](images/paste-2.png)
+![Workflow 2: extended qc with porechop, then fastp, assembly and classification and manual filtering before visualization](images/paste-2.png)
 
-The main part (preprocessing -\> assemble -\> classification) of workflow 2 is the same as in worklow 2, however in this workflow porechop was used before fastp to filter adapters. (**Porechop** is used for the removal of sequencing adapters and improving the accuracy of downstream analyses. Version: 0.5.1, Parameters: ,<https://github.com/bonsai-team/Porechop_ABI>)
+The main steps of workflow 2 (preprocessing -\> assemble -\> classification) are the same as in worklow 1, however in this workflow porechop was used before fastp to filter adapters. (**Porechop** is used for the removal of sequencing adapters and improving the accuracy of downstream analyses. Version: 0.5.1, Parameters: ,<https://github.com/bonsai-team/Porechop_ABI>).\
+After classification the results were manually filtered using this command: `awk -F'\t' '\$2 \> 5' report.txt \> filtered_report.txt`
 
-For sample 4 Raven was used as additional assembly method (**Raven** is a de novo genome assembler optimized for long, error-prone reads, Version: 1.8.3, Parameters: ,<https://github.com/lbcb-sci/raven>)
+As not every assembler works with every sample, MetaFlye and Canu were used as alternative for some samples (**MetaFlye** is a de novo assembler based on Flye and optimized for metagenomic data and is ideally for oxford nanopore reads. Version: 2.1.3, Parameters: , <https://github.com/fenderglass/Flye>, **Canu** is specifically designed for long-read data from Oxford Nanopore, Version: 2.3, Parameters: `canu -p canu_assembly -d genomeSize=10m maxThreads=8 useGrid=false -nanopore` , <https://github.com/marbl/canu>).
 
-*MetaQuast* *Canu*
+MetaQuast was used to compare the quality of metagenome asselblies from different asselblers, specially for sample 4. (Version: 5.2.0, Parameters:, https://github.com/ablab/quast)
+
+\newpage
 
 ## Results
 
 ### Sample 1
 
-Sample 1 taxonomy classification with Kraken 2 was performed with different approaches to the sequence assembly. 
-For each approach polishing and filtering steps with Porechop (adapter trimming) Fastp (discard nucleotides <10 phred score) and a manual awk filtering step were performed. After the preparation steps assembly was performed with Metaflye, Raven and a classification with no assembly at all. 
-Since Raven assemblies are the most representative assemblies for our samples the results of Raven and the classification without an assembly are shown here (the Metaflye assembly data shows very similar results, but Raven results are the most representative for the four given samples)
+Sample 1 taxonomy classification with Kraken 2 was performed with different approaches to the sequence assembly. For each approach polishing and filtering steps with Porechop (adapter trimming) Fastp (discard nucleotides \<10 phred score) and a manual awk filtering step were performed. After the preparation steps assembly was performed with Metaflye, Raven and a classification with no assembly at all. Since Raven assemblies are the most representative assemblies for our samples the results of Raven and the classification without an assembly are shown here (the Metaflye assembly data shows very similar results, but Raven results are the most representative for the four given samples)
 
 Quality control with `FastQC` revealed 1460282 sequences (GC 42%), with low base quality in short reads. After adapter and quality filtering using `Porechop` and `Fastp`, 1384890 high-quality reads (GC 42%) remained.
 
@@ -137,21 +136,20 @@ Krona output of workflow with no assembly of sample 1:
 
 Comparison of Top 8 relativ abundand organisms from Krona classificiation output:
 
-| Taxon (Top 8)            | Relative abundance \[%\] | Relative abundance alt \[%\] |
-|--------------------------|--------------------------|------------------------------|
-| Homo sapiens             | 54                       | 56                           |
-| Prevotella melaninogenica| 4                        | 5                            |
-| Schaalia odontolytica    | 4                        | 4                            |
-| Prevotella jejuni        | 3                        | 3                            |
-| Prevotella histicola     | 2                        | 2                            |
-| Neisseria subflava       | 2                        | 2                            |
-| Fusobacterium pseudoperiodonticum | 1               | 1                            |
-| Veillonella nakazawae    | 1                        | 1                            |
+| Taxon (Top 8) | Relative abundance \[%\] | Relative abundance alt \[%\] |
+|-----------------------|-----------------------|--------------------------|
+| Homo sapiens | 54 | 56 |
+| Prevotella melaninogenica | 4 | 5 |
+| Schaalia odontolytica | 4 | 4 |
+| Prevotella jejuni | 3 | 3 |
+| Prevotella histicola | 2 | 2 |
+| Neisseria subflava | 2 | 2 |
+| Fusobacterium pseudoperiodonticum | 1 | 1 |
+| Veillonella nakazawae | 1 | 1 |
 
- 
 ### Sample 2
 
-Sample 2 analysis was performed with the same polishing and filtering steps as sample 1 (Porechop (adapter trimming) Fastp (discard nucleotides <10 phred score) and a manual awk filtering). Here too an assembly with Metaflye and Raven was performed. The results showed very similar numbers and Metaflye outputs are not shown in this report (as Raven stays the most representative assembler for our samples).
+Sample 2 analysis was performed with the same polishing and filtering steps as sample 1 (Porechop (adapter trimming) Fastp (discard nucleotides \<10 phred score) and a manual awk filtering). Here too an assembly with Metaflye and Raven was performed. The results showed very similar numbers and Metaflye outputs are not shown in this report (as Raven stays the most representative assembler for our samples).
 
 Quality control with `FastQC` revealed 281153 sequences (GC 41%), with low base quality in short reads. After adapter and quality filtering using `Porechop` and `Fastp`, 254349 high-quality reads (GC 41%) remained.
 
@@ -161,15 +159,15 @@ Quality control with `FastQC` revealed 281153 sequences (GC 41%), with low base 
 
 Top 8 relativ abundand organisms from Krona classificiation output:
 
-| Taxon (Top 8)            | Relative abundance \[%\] |
-|--------------------------|--------------------------|
-| Staphylococcus epidermidis| 38                      |
-| Staphylococcus warneri   | 17                       |
-| Micrococcus luteus       | 13                       |
-| Staphylococcus hominis   | 10                       |
-| Enterococcus faecalis    | 4                        |
-| Staphylococcus hominis subsp. hominis   | 3         |
-| Moraxella osloensis      | 2                        |
+| Taxon (Top 8)                         | Relative abundance \[%\] |
+|---------------------------------------|--------------------------|
+| Staphylococcus epidermidis            | 38                       |
+| Staphylococcus warneri                | 17                       |
+| Micrococcus luteus                    | 13                       |
+| Staphylococcus hominis                | 10                       |
+| Enterococcus faecalis                 | 4                        |
+| Staphylococcus hominis subsp. hominis | 3                        |
+| Moraxella osloensis                   | 2                        |
 
 ### Sample 3
 
