@@ -106,11 +106,13 @@ The main part (preprocessing -\> assemble -\> classification) of workflow 2 is t
 
 For sample 4 Raven was used as additional assembly method (**Raven** is a de novo genome assembler optimized for long, error-prone reads, Version: 1.8.3, Parameters: ,<https://github.com/lbcb-sci/raven>)
 
+*MetaQuast* *Canu*
+
 ## Results
 
 ### Sample 3
 
-Sample 3 was analized using an extension of workflow 2. Instead of additional filtering after the classification via Kraken2, 3 different tools were used for assembly - Metaflye, Raven and Canu. 
+Sample 3 was analized using an extension of workflow 2. Instead of additional filtering after the classification via Kraken2, 3 different tools were used for assembly - Metaflye, Raven and Canu.
 
 #### Quality Control and Filtering
 
@@ -124,11 +126,9 @@ The per base sequence quality was realtively low ($<10$) for short reads, but we
 
 ##### Porechop
 
-After running 'Porechop' to filter low quality reads another 'FastQC' run was made. This time Sample 3 contained $559781$ total sequences, with a sequences length between $1$ and $465729$ bases. The GC content grew to $72%$.
-Also the per base quality score, especially for the shorter reads, went up to an average of about 24 as seen in @fig-fastqc-porechop .
+After running 'Porechop' to filter low quality reads another 'FastQC' run was made. This time Sample 3 contained $559781$ total sequences, with a sequences length between $1$ and $465729$ bases. The GC content grew to $72%$. Also the per base quality score, especially for the shorter reads, went up to an average of about 24 as seen in @fig-fastqc-porechop .
 
 ![FastQC report after Porechop.](figures/fastqc_porechop_3.JPG){#fig-fastqc-porechop}
-
 
 ##### Fastp
 
@@ -136,106 +136,43 @@ After 'Porechop' we did a second round of filtering using 'Fastp'.
 
 In @tbl-general we see that the mean length of reads increased with the filtering, and a low duplication rate with under $7.4%$
 
-::: {.tbl-caption="General fastp statistics" #tbl-general}
-| Metric                      | Value                                                                      |
-|-----------------------------|----------------------------------------------------------------------------|
-| fastp version               | 0.23.2 ([link](https://github.com/OpenGene/fastp))                         |
-| sequencing                  | single end (465729 cycles)                                                 |
-| mean length before filtering| 1640 bp                                                                    |
-| mean length after filtering | 1833 bp                                                                    |
-| duplication rate            | 7.370328% (may be overestimated since this is SE data)                     |
-:::
-
+::: {.tbl-caption="General fastp statistics" #tbl-general} \| Metric \| Value \| \|-----------------------------\|----------------------------------------------------------------------------\| \| fastp version \| 0.23.2 ([link](https://github.com/OpenGene/fastp)) \| \| sequencing \| single end (465729 cycles) \| \| mean length before filtering\| 1640 bp \| \| mean length after filtering \| 1833 bp \| \| duplication rate \| 7.370328% (may be overestimated since this is SE data) \| :::
 
 As seen in @tbl-before-filtering before the Filtering the total amount of reads was $~559781$ and total sequenced bases was $~918$ million, most of which are above a phred-score of 20.
 
-::: {.tbl-caption="Before Filtering" #tbl-before-filtering}
-| Metric         | Value                        |
-|----------------|-----------------------------|
-| total reads    | 559.781000 K                |
-| total bases    | 918.055540 M                |
-| Q20 bases      | 760.751694 M (82.865541%)   |
-| Q30 bases      | 654.715441 M (71.315450%)   |
-| GC content     | 72.119094%                  |
-:::
+::: {.tbl-caption="Before Filtering" #tbl-before-filtering} \| Metric \| Value \| \|----------------\|-----------------------------\| \| total reads \| 559.781000 K \| \| total bases \| 918.055540 M \| \| Q20 bases \| 760.751694 M (82.865541%) \| \| Q30 bases \| 654.715441 M (71.315450%) \| \| GC content \| 72.119094% \| :::
 
+@tbl-after-filtering shows that the total reads decreased by about $78000$, at the same time the amount of bases with a phred-score above 20 only decreased slightly. The GC content changed from $72.1%$ to $72.8%$ with 'Fastp' filtering.
 
-@tbl-after-filtering shows that the total reads decreased by about $78000$, at the same time the amount of bases with a phred-score above 20 only decreased slightly.
-The GC content changed from $72.1%$ to $72.8%$ with 'Fastp' filtering.
-
-::: {.tbl-caption="After Filtering" #tbl-after-filtering}
-| Metric         | Value                        |
-|----------------|-----------------------------|
-| total reads    | 481.272000 K                |
-| total bases    | 882.299622 M                |
-| Q20 bases      | 756.700694 M (85.764595%)   |
-| Q30 bases      | 652.968620 M (74.007528%)   |
-| GC content     | 72.823710%                  |
-:::
-
+::: {.tbl-caption="After Filtering" #tbl-after-filtering} \| Metric \| Value \| \|----------------\|-----------------------------\| \| total reads \| 481.272000 K \| \| total bases \| 882.299622 M \| \| Q20 bases \| 756.700694 M (85.764595%) \| \| Q30 bases \| 652.968620 M (74.007528%) \| \| GC content \| 72.823710% \| :::
 
 The Results of 'Fastp', as seen in @tbl-filtering-result, show that $85.97%$ of reads passed filtering. $53879$ reads had a low quality and $24630$ reads were too short.
 
-::: {.tbl-caption="Filtering Result" #tbl-filtering-result}
-| Metric                | Value                       |
-|-----------------------|----------------------------|
-| reads passed filters  | 481.272000 K (85.975051%)  |
-| reads with low quality| 53.879000 K (9.625014%)    |
-| reads with too many N | 0 (0.000000%)              |
-| reads too short       | 24.630000 K (4.399935%)    |
-:::
+::: {.tbl-caption="Filtering Result" #tbl-filtering-result} \| Metric \| Value \| \|-----------------------\|----------------------------\| \| reads passed filters \| 481.272000 K (85.975051%) \| \| reads with low quality\| 53.879000 K (9.625014%) \| \| reads with too many N \| 0 (0.000000%) \| \| reads too short \| 24.630000 K (4.399935%) \| :::
 
 #### Assembly
 
-For Assembly we used three different tools - 'Metaflye', 'Raven', and 'Canu'. 
+For Assembly we used three different tools - 'Metaflye', 'Raven', and 'Canu'.
 
 ##### Metaflye
 
-@tbl-assembly-metaflye shows the assembly-summary, where it can be seen, that no repeats of the contigs were detected, and all of them had good coverage except contig 7.
-The length of the contigs ranged from $2610$ up to $3281136$, with 3 contigs having a length above one million bases. Contig 10 was found to be circular.
+@tbl-assembly-metaflye shows the assembly-summary, where it can be seen, that no repeats of the contigs were detected, and all of them had good coverage except contig 7. The length of the contigs ranged from $2610$ up to $3281136$, with 3 contigs having a length above one million bases. Contig 10 was found to be circular.
 
-::: {.tbl-caption="Assembly summary from metaflye" #tbl-assembly-metaflye}
-| seq_name  | length   | cov. | circ. | repeat | mult. | alt_group | graph_path |
-|-----------|----------|------|-------|--------|-------|-----------|------------|
-| contig_2  | 3281136  | 52   | N     | N      | 1     | *         | 2,-1       |
-| contig_5  | 2238826  | 76   | N     | N      | 1     | *         | 5,*        |
-| contig_4  | 2038941  | 67   | N     | N      | 1     | *         | -1,4       |
-| contig_3  | 892101   | 97   | N     | N      | 1     | *         | -1,3       |
-| contig_10 | 36956    | 133  | Y     | N      | 1     | *         | 10         |
-| contig_6  | 16159    | 10   | N     | N      | 1     | *         | *,6,*      |
-| contig_7  | 4803     | 4    | N     | N      | 1     | *         | *,7,*      |
-| contig_9  | 3525     | 16   | N     | N      | 1     | *         | *,9,*      |
-| contig_8  | 2610     | 10   | N     | N      | 1     | *         | *,8,*      |
-:::
+::: {.tbl-caption="Assembly summary from metaflye" #tbl-assembly-metaflye} \| seq_name \| length \| cov. \| circ. \| repeat \| mult. \| alt_group \| graph_path \| \|-----------\|----------\|------\|-------\|--------\|-------\|-----------\|------------\| \| contig_2 \| 3281136 \| 52 \| N \| N \| 1 \| \* \| 2,-1 \| \| contig_5 \| 2238826 \| 76 \| N \| N \| 1 \| \* \| 5,\* \| \| contig_4 \| 2038941 \| 67 \| N \| N \| 1 \| \* \| -1,4 \| \| contig_3 \| 892101 \| 97 \| N \| N \| 1 \| \* \| -1,3 \| \| contig_10 \| 36956 \| 133 \| Y \| N \| 1 \| \* \| 10 \| \| contig_6 \| 16159 \| 10 \| N \| N \| 1 \| \* \| *,6,* \| \| contig_7 \| 4803 \| 4 \| N \| N \| 1 \| \* \| *,7,* \| \| contig_9 \| 3525 \| 16 \| N \| N \| 1 \| \* \| *,9,* \| \| contig_8 \| 2610 \| 10 \| N \| N \| 1 \| \* \| *,8,* \| :::
 
 ##### Canu
 
 As seen in @tbl-assembly-canu 'Canu' assembled 22 contigs with a total length of approximately 8.7 Mb. Additionally, a high number of sequences could not be assembled (2664).
 
-::: {.tbl-caption="Assembly summary from Canu" #tbl-assembly-canu}
-| Metric                          | Value                                |
-|----------------------------------|--------------------------------------|
-| Number of contigs                | 22                                   |
-| Total contig length              | ~8.7 Mbp                             |
-| Number of repeat sequences       | 63                                   |
-| Total repeat length              | ~0.65 Mbp                            |
-| Number of bubbles                | 119                                  |
-| Total bubble length              | ~1.1 Mbp                             |
-| Number of unassembled sequences  | 2,664                                |
-| Total unassembled length         | ~11.3 Mbp                            |
-| NG50 contig length (10 Mbp genome)| 816,010 bp                         |
-| Largest contig (NG10/NG20)       | >2.2 Mbp                             |
-:::
+::: {.tbl-caption="Assembly summary from Canu" #tbl-assembly-canu} \| Metric \| Value \| \|----------------------------------\|--------------------------------------\| \| Number of contigs \| 22 \| \| Total contig length \| \~8.7 Mbp \| \| Number of repeat sequences \| 63 \| \| Total repeat length \| \~0.65 Mbp \| \| Number of bubbles \| 119 \| \| Total bubble length \| \~1.1 Mbp \| \| Number of unassembled sequences \| 2,664 \| \| Total unassembled length \| \~11.3 Mbp \| \| NG50 contig length (10 Mbp genome)\| 816,010 bp \| \| Largest contig (NG10/NG20) \| \>2.2 Mbp \| :::
 
 ##### Raven
 
-'Raven' `s only output was the assembled .fasta file. The assembly itself will be evaluated in the next subchapter with 'MetaQuast'
+'Raven' \`s only output was the assembled .fasta file. The assembly itself will be evaluated in the next subchapter with 'MetaQuast'
 
 ##### MetaQuast Assembly Comparison
 
-'MetaQuast' was used to compare assemblies from 'Metaflye', 'Raven', and 'Canu'. All assemblers achieved a similar genome fraction (86.4%), while the duplication ratio was highest for 'Canu' at 1.18. 
-'Metaflye' and 'Raven' each produced 9 contigs, while 'Canu' produced 141. The largest contigs were over 3.2 Mbp for 'Metaflye' and 'Raven', and 2.2 Mbp for 'Canu'. 
-Mismatch and indel rates were lowest for 'Metaflye'. Summary statistics are shown in @fig-metaquast .
+'MetaQuast' was used to compare assemblies from 'Metaflye', 'Raven', and 'Canu'. All assemblers achieved a similar genome fraction (86.4%), while the duplication ratio was highest for 'Canu' at 1.18. 'Metaflye' and 'Raven' each produced 9 contigs, while 'Canu' produced 141. The largest contigs were over 3.2 Mbp for 'Metaflye' and 'Raven', and 2.2 Mbp for 'Canu'. Mismatch and indel rates were lowest for 'Metaflye'. Summary statistics are shown in @fig-metaquast .
 
 ::: {#fig-metaquast .figure}
 ![Assembly statistics comparison generated by MetaQUAST.](metaquast.JPG)
@@ -243,9 +180,7 @@ Mismatch and indel rates were lowest for 'Metaflye'. Summary statistics are show
 
 #### Classification
 
-The assembled contigs from `Metaflye`, `Raven`, and `Canu` were taxonomically classified using `Kraken2`. For each assembly  assigned the taxonomy to the contigs based on the reference database. 
-This approach allows for a direct comparison of the taxonomic profiles resulting from the different assembly strategies.
-
+The assembled contigs from `Metaflye`, `Raven`, and `Canu` were taxonomically classified using `Kraken2`. For each assembly assigned the taxonomy to the contigs based on the reference database. This approach allows for a direct comparison of the taxonomic profiles resulting from the different assembly strategies.
 
 ## Discussion
 
