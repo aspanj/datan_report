@@ -1,17 +1,20 @@
 ---
-title: "Datenanalyse - Laborprotokoll"
-subtitle: "Gruppe 1_b"
+title: "Datenanalyse - Laborprotokoll (Gruppe 1b)"
 author: Jan Aspan, Felix Bachmann, Niklas Grundner, Julian Resch, Sebastian Sarria Suarez
-format: 
-  html:
-    embed-resources: true
-    code-fold: true
+format:
+  pdf:
+    documentclass: article
+    geometry: top=20mm, bottom=20mm, left=15mm, right=15mm
 editor: visual
 date: last-modified
 number-sections: true
 number-depth: 2
 date-format: "DD. MMMM YYYY"
 ---
+
+\tableofcontents
+
+\newpage
 
 ## Abstract
 
@@ -79,10 +82,6 @@ Taxonomic classification is important for the following points:
 
 ## Methods
 
-### Sample preparation and sequencing
-
-Sample preparation was done according to *Rapid sequencing DNA V14 - barcoding (SQK-RBK114.24 or SQK-RBK114.96)*. Additional required steps are explained in detail in *GRUPPE_1_B_20250212_Labprotocol*. The output of the oxford nanopore basecaller is reffered as "sample" in further steps.
-
 ### Data processing pipeline
 
 To gain both meaningful result and insight into the effect of quality control and filtering, two slightly different workflows were defined for data analysis.\
@@ -119,15 +118,11 @@ Quality control with `FastQC` revealed 1460282 sequences (GC 42%), with low base
 
 Krona output of workflow with Raven assembly of sample 1:
 
-![Krona chart showing taxonomic composition of sample 1 assembled via Raven](figures/krona_1.png){#fig-krona1 width="600"}
+![Krona chart showing taxonomic composition of sample 1 assembled via Raven](figures/krona_1.png){#fig-krona1 width="65%"}
 
 Krona output of workflow with no assembly of sample 1:
 
-![Krona chart showing taxonomic composition of sample 1 alternative workflow (no assembly)](figures/krona_1_alt.png){#fig-krona1-alt width="600"}
-
-<br>
-
-Comparison of Top 8 relativ abundand organisms from Krona classificiation output:
+![Krona chart showing taxonomic composition of sample 1 alternative workflow (no assembly)](figures/krona_1_alt.png){#fig-krona1-alt width="65%"}
 
 | Taxon (Top 8) | Relative abundance \[%\] | Relative abundance alt \[%\] |
 |-----------------------|-----------------------|--------------------------|
@@ -140,17 +135,19 @@ Comparison of Top 8 relativ abundand organisms from Krona classificiation output
 | Fusobacterium pseudoperiodonticum | 1 | 1 |
 | Veillonella nakazawae | 1 | 1 |
 
+: Comparison of Top 8 relativ abundand organisms from Krona classificiation output
+
+\newpage
+
 ### Sample 2
 
 Sample 2 analysis was performed with the same polishing and filtering steps as sample 1 (Porechop (adapter trimming) Fastp (discard nucleotides \<10 phred score) and a manual awk filtering). Here too an assembly with Metaflye and Raven was performed. The results showed very similar numbers and Metaflye outputs are not shown in this report (as Raven stays the most representative assembler for our samples).
 
 Quality control with `FastQC` revealed 281153 sequences (GC 41%), with low base quality in short reads. After adapter and quality filtering using `Porechop` and `Fastp`, 254349 high-quality reads (GC 41%) remained.
 
-![Krona chart showing taxonomic composition of sample 2 assembled via Raven](figures/krona_2.png){#fig-krona2 width="600"}
+![Krona chart showing taxonomic composition of sample 2 assembled via Raven](figures/krona_2.png){width="65%"}
 
-<br>
-
-Top 8 relativ abundand organisms from Krona classificiation output:
+\newpage
 
 | Taxon (Top 8)                         | Relative abundance \[%\] |
 |---------------------------------------|--------------------------|
@@ -162,27 +159,29 @@ Top 8 relativ abundand organisms from Krona classificiation output:
 | Staphylococcus hominis subsp. hominis | 3                        |
 | Moraxella osloensis                   | 2                        |
 
+: Top 8 relativ abundand organisms from Krona classificiation output
+
 ### Sample 3
 
 Sample 3 was processed using `Metaflye`, `Raven`, and `Canu` for assembly. Quality control with `FastQC` revealed 672,323 sequences (GC 69%), with low base quality in short reads. After adapter and quality filtering using `Porechop` and `Fastp`, 481,272 high-quality reads (GC 72.8%) remained, with a mean length of 1,833 bp and a duplication rate below 7.4%.
 
 Assembly with `Metaflye` produced contigs ranging from 2,610 bp to 3.28 Mbp, including one circular contig. `Canu` assembled 22 contigs (total length \~8.7 Mbp, NG50: 816 kb), but 2,664 sequences remained unassembled. `Raven` generated a single assembly file, which was compared together with the other assemblies using `MetaQUAST`.
 
-MetaQUAST analysis showed similar genome fractions (86.4%) for all three assemblers. `Metaflye` and `Raven` produced 9 contigs each, while `Canu` had 141. The largest contigs were over 3.2 Mbp for `Metaflye` and `Raven`, and 2.2 Mbp for `Canu`. Summary statistics are presented in Figure 1.
+MetaQUAST analysis showed similar genome fractions (86.4%) for all three assemblers. `Metaflye` and `Raven` produced 9 contigs each, while `Canu` had 141. The largest contigs were over 3.2 Mbp for `Metaflye` and `Raven`, and 2.2 Mbp for `Canu`. Summary statistics are presented in Figure 6.
 
-![Assembly statistics comparison generated by MetaQUAST.](figures/metaquast.JPG){#fig-metaquast}
+![Assembly statistics comparison generated by MetaQUAST.](figures/metaquast.JPG){#fig-metaquast width="362"}
 
-Taxonomic classification of all assemblies was performed with `Kraken2`. The resulting taxonomic profile, S.noursei, was visualized using a Krona chart (Figure 2).
+Taxonomic classification of all assemblies was performed with `Kraken2`. The resulting taxonomic profile, S.noursei, was visualized using a Krona chart (Figure 7).
 
-![Krona chart showing taxonomic composition.](figures/krona_3.png){#fig-krona3 width="600"}
+![Krona chart showing taxonomic composition.](figures/krona_3.png){width="65%"}
 
 ### Sample 4
 
 Sample 4 was successfully assembled using `Raven`, while assemblies with `Metaflye` and `Canu` did not yield usable results. Quality control after adapter and quality trimming indicated that the dataset contained a sufficient number of high-quality reads for assembly.
 
-The assembly with `Raven` resulted in multiple high-coverage contigs, with total assembly size and contig statistics indicating a comprehensive reconstruction of the sample’s genomic content. Several of the resulting contigs were identified as circular, suggesting the presence of plasmids or complete genomes. The taxonomic composition is visualized in the Krona chart in Figure 3.
+The assembly with `Raven` resulted in multiple high-coverage contigs, with total assembly size and contig statistics indicating a comprehensive reconstruction of the sample’s genomic content. Several of the resulting contigs were identified as circular, suggesting the presence of plasmids or complete genomes. The taxonomic composition is visualized in the Krona chart in Figure 8.
 
-![Krona chart showing taxonomic composition of Sample 4.](figures/krona_4.png){width="600"}
+![Krona chart showing taxonomic composition of Sample 4.](figures/krona_4.png){width="65%"}
 
 The most abundant taxa included `Bacillus subtilis` (13%), `Enterococcus faecalis` (12%), and `Salmonella enterica` (10%). The following table summarizes the most represented species detected.
 
@@ -211,13 +210,16 @@ The step Filtering prior to visualization using the command outlined in Workflow
 ### Assembly using Canu
 
 The Samples were also assembled using the Canu assembly, but for the most part the resulting data was not included in this report. As per the developers canu is mainly used for the assembly of individual genomes. [https://github.com/marbl/canu](#0){.uri} Canu also resulted in the most time-consuming assemblies as well as the most computational expensive. These findings are corroborated by a study by Latorre-Pérez et al. \[18\] who also report the longest assembly times. But they also report canu as the best performing assembly using optimized parameters as well as multiple rounds of polishing.\
-As we primarily used the parameters given via the canu faq [https://canu.readthedocs.io/en/latest/faq.html#what-parameters-should-i-use-for-my-reads](#0){.uri} we do not recommend the use of canu for assembly of our samples. But further optimization and polishing could result in higher quality outputs.
+As we primarily used the parameters given via the canu faq\
+[https://canu.readthedocs.io/en/latest/faq.html#what-parameters-should-i-use-for-my-reads](#0){.uri} we do not recommend the use of canu for assembly of our samples. But further optimization and polishing could result in higher quality outputs.
 
 ### Recommended Workflow
 
 We do not recommend the use of canu, as well as the use of metaFlye for the assembly of our samples. Canu because of the time intensive assembly process as well as the need for further optimization of the parameters used. MetaFlye is not recommended, as the composition of sample 4 might be the cause of the lower quality of the assembly.\
 The filtering step prior to visualization should only be used after verification that there is no loss of important data in the resulting plots.\
 We recommend the use of workflow 2 for the classification of our sample because of the ease of use as well as the lower time and computation resources necessary to perform the classification. Using this workflow
+
+\newpage
 
 ## References
 
