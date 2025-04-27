@@ -91,20 +91,20 @@ One with minimal quality control and no filtering and a second one with further 
 
 ![Workflow 1: From Sample to qc, then to assembly, classification and visualization](images/paste-3.png)
 
-In this minimal workflow the received data was preprocessed with fastp which also has minimal qc functionality integrated (Version: 0.24.0, default parameters, <https://github.com/OpenGene/fastp>).\
-The output from fastp was then assembled using Raven (**Raven** is a genome assembler designed for error-prone reads like oxford nanopore reads. Version: 1.8.3, Parameters: , <https://github.com/lbcb-sci/raven>).\
-For taxonomic classification, Kaken2 was used and Krona to create the visuals. (**Kraken2** is a taxonomic classification database used to assign reads to taxa. Version: 2.1.3, Parameters: , [https://github.com/DerrickWood/kraken2](#0){.uri}) (**Krona** is used to visualize the result as interactive html plots, Version: 2.8.1, Parameters: ,[https://github.com/marbl/Krona/wiki](#0){.uri})
+In this minimal workflow the received data was preprocessed with fastp which also has minimal qc functionality integrated (Version: 0.24.0, <https://github.com/OpenGene/fastp>).\
+The output from fastp was then assembled using Raven (**Raven** is a genome assembler designed for error-prone reads like oxford nanopore reads. Version: 1.8.3, <https://github.com/lbcb-sci/raven>).\
+For taxonomic classification, Kaken2 was used and Krona to create the visuals. (**Kraken2** is a taxonomic classification database used to assign reads to taxa. Version: 2.1.3, [https://github.com/DerrickWood/kraken2](#0){.uri}) (**Krona** is used to visualize the result as interactive html plots, Version: 2.8.1, [https://github.com/marbl/Krona/wiki](#0){.uri})
 
 #### Workflow 2 - extended QC and filtering
 
 ![Workflow 2: extended qc with porechop, then fastp, assembly and classification and manual filtering before visualization](images/paste-2.png)
 
-The main steps of workflow 2 (preprocessing -\> assemble -\> classification) are the same as in worklow 1, however in this workflow porechop was used before fastp to filter adapters. (**Porechop** is used for the removal of sequencing adapters and improving the accuracy of downstream analyses. Version: 0.5.1, Parameters: ,<https://github.com/bonsai-team/Porechop_ABI>).\
+The main steps of workflow 2 (preprocessing -\> assemble -\> classification) are the same as in worklow 1, however in this workflow porechop was used before fastp to filter adapters. (**Porechop** is used for the removal of sequencing adapters and improving the accuracy of downstream analyses. Version: 0.5.1, <https://github.com/bonsai-team/Porechop_ABI>).\
 After classification the results were manually filtered using this command: `awk -F'\t' '\$2 \> 5' report.txt \> filtered_report.txt`
 
-As not every assembler works with every sample, MetaFlye and Canu were used as alternative for some samples (**MetaFlye** is a de novo assembler based on Flye and optimized for metagenomic data and is ideally for oxford nanopore reads. Version: 2.1.3, Parameters: , <https://github.com/fenderglass/Flye>, **Canu** is specifically designed for long-read data from Oxford Nanopore, Version: 2.3, Parameters: `canu -p canu_assembly -d genomeSize=10m maxThreads=8 useGrid=false -nanopore` , <https://github.com/marbl/canu>).
+As not every assembler works with every sample, MetaFlye and Canu were used as alternative for some samples (**MetaFlye** is a de novo assembler based on Flye and optimized for metagenomic data and is ideally for oxford nanopore reads. Version: 2.1.3, <https://github.com/fenderglass/Flye>, **Canu** is specifically designed for long-read data from Oxford Nanopore, Version: 2.3, Parameters: `canu -p canu_assembly -d genomeSize=10m maxThreads=8 useGrid=false -nanopore` , <https://github.com/marbl/canu>).
 
-MetaQuast was used to compare the quality of metagenome asselblies from different asselblers, specially for sample 4. (Version: 5.2.0, Parameters:, https://github.com/ablab/quast)
+MetaQuast was used to compare the quality of metagenome asselblies from different asselblers, specially for sample 4. (Version: 5.2.0, <https://github.com/ablab/quast>)
 
 \newpage
 
