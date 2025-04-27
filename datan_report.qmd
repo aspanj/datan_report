@@ -207,6 +207,22 @@ The most abundant taxa included `Bacillus subtilis` (13%), `Enterococcus faecali
 
 ## Discussion
 
+### Initial Assembly using metaFlye  
+The initial round of Assembly was performed using metaFlye. The first two samples could be identified as the oral swab sample and the room monitoring sample. The two remaining samples could not be identified as the DNA standard. Both samples only appeared to contain a single organism. A possible explanation could be the high variance in the length of the genomes in the sample (Saccharomyces cerevisiae \~ 12MB vs Escherichia coli \~ 5 MB).\
+
+### Filtering prior to Visualization
+ The step Filtering prior to visualization using the command outlined in Workflow 2 was also a contributing factor in the initial misidentification of Sample 4. This step was initially performed without thorough examination of the data. As evidence of microorganisms other than Saccharomyces cerevisiae could be observed prior to filtering and not after. This resulted in a more detailed examination of the data prior to performing this step for all other following classifications.\
+
+### Assembly using Canu
+The Samples were also assembled using the Canu assembly, but for the most part the resulting data was not included in this report. As per the developers canu is mainly used for the assembly of individual genomes. [https://github.com/marbl/canu](#0){.uri} Canu also resulted in the most time-consuming assemblies as well as the most computational expensive. These findings are corroborated by a study by Latorre-Pérez et al. \[18\] who also report the longest assembly times. But they also report canu as the best performing assembly using optimized parameters as well as multiple rounds of polishing. \
+As we primarily used the parameters given via the canu faq [https://canu.readthedocs.io/en/latest/faq.html#what-parameters-should-i-use-for-my-reads](#0){.uri} we do not recommend the use of canu for assembly of our samples. But further optimization and polishing could result in higher quality outputs.
+
+### Recommended Workflow
+We do not recommend the use of canu, as well as the use of metaFlye for the assembly of our samples. Canu because of the time intensive assembly process as well as the need for further optimization of the parameters used. MetaFlye is not recommended, as the composition of sample 4 might be the cause of the lower quality of the assembly. \
+The filtering step prior to visualization should only be used after verification that there is no loss of important data in the resulting plots. \
+We recommend the use of workflow 2 for the classification of our sample because of the ease of use as well as the lower time and computation resources necessary to perform the classification. Using this workflow 
+
+
 ## References
 
 \[1\] Wang, Y., Zhao, Y., Bollas, A. et al. Nanopore sequencing technology, bioinformatics and applications. Nat Biotechnol 39, 1348–1365 (2021)
@@ -236,6 +252,9 @@ The most abundant taxa included `Bacillus subtilis` (13%), `Enterococcus faecali
 \[16\] Maguire, Meghan & Kase, Julie & Roberson, Dwayne & Muruvanda, Tim & Brown, Eric & Allard, Marc & Musser, Steven & González-Escalona, Narjol. Precision long-read metagenomics sequencing for food safety by detection and assembly of Shiga toxin-producing Escherichia coli in irrigation water (2021)
 
 \[17\] Maranga M, Szczerbiak P, Bezshapkin V, Gligorijevic V, Chandler C, Bonneau R, Xavier RJ, Vatanen T, Kosciolek T. Comprehensive Functional Annotation of Metagenomes and Microbial Genomes Using a Deep Learning-Based Method. mSystems. (2023)
+
+\[18\] Latorre-Pérez A, Villalba-Bermell P, Pascual J, Vilanova C. Assembly methods for nanopore-based metagenomic sequencing: a comparative study. Sci Rep. (2020) 
+ 
 
 ## Links
 
