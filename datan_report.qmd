@@ -15,14 +15,8 @@ date-format: "DD. MMMM YYYY"
 
 ## Abstract
 
-From DNA samples to taxonomic classification.
+Oxford Nanopore sequencing enables direct, long-read analysis of complex metagenomic samples. In this study, we systematically compared two data processing workflows for taxonomic classification, starting from DNA samples of known origin: an oral swab, a room monitoring sample, a single cultured microorganism, and the ZymoBIOMICS HMW DNA standard (ZymoResearch Cat.# D6322). We evaluated a minimal workflow with basic quality control and no filtering against an extended workflow including expanded quality control and additional manual filtering. Assemblies were performed using `Raven`, `MetaFlye`, and `Canu`, the taxonomic classification via `Kraken2` and visualization using `Krona`. Our results demonstrate that comprehensive quality control significantly improves assembly accuracy and taxonomic resolution. Among assemblers, `Raven` consistently yielded the most representative results across all sample types. We recommend a workflow combining thorough quality filtering, `Raven` assembly, and `Kraken2` classification for reliable and efficient nanopore-based metagenomic analysis of diverse sample origins.
 
-Known sample origin:
-
-1.  oral swab sample
-2.  room monitoring sample
-3.  single cultured microorganism
-4.  ZymoBIOMICS HMW DNA standard from ZymoResearch (Cat.# D6322)
 
 ## Background
 
