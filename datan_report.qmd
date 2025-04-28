@@ -112,7 +112,7 @@ MetaQuast was used to compare the quality of metagenome asselblies from differen
 
 ### Sample 1
 
-Sample 1 taxonomy classification with Kraken 2 was performed with different approaches to the sequence assembly. For each approach polishing and filtering steps with Porechop (adapter trimming) Fastp (discard nucleotides \<10 phred score) and a manual awk filtering step were performed. After the preparation steps assembly was performed with Metaflye, Raven and a classification with no assembly at all. Since Raven assemblies are the most representative assemblies for our samples the results of Raven and the classification without an assembly are shown here (the Metaflye assembly data shows very similar results, but Raven results are the most representative for the four given samples)
+Sample 1 taxonomy classification with Kraken 2 was performed with different approaches to the sequence assembly. For each approach polishing and filtering steps with Porechop (adapter trimming), Fastp (discard nucleotides \<10 phred score) and a manual awk filtering step were performed. After the preparation steps assembly was performed with Metaflye, Raven and a classification with no assembly at all. Since Raven assemblies are the most representative assemblies for our samples the results of Raven and the classification without an assembly are shown here (the Metaflye assembly data shows very similar results, but Raven results are the most representative for the four given samples and the results of sample 1 with no assembly are, unexpectedly, also very similar and therefore shown here).
 
 Quality control with `FastQC` revealed 1460282 sequences (GC 42%), with low base quality in short reads. After adapter and quality filtering using `Porechop` and `Fastp`, 1384890 high-quality reads (GC 42%) remained.
 
@@ -126,7 +126,7 @@ Krona output of workflow with no assembly of sample 1:
 
 ![Krona chart showing taxonomic composition of sample 1 alternative workflow (no assembly)](figures/krona_1_alt.png){#fig-krona1-alt width="65%" fig-pos="H"}
 
-| Taxon (Top 8) | Relative abundance \[%\] | Relative abundance alt \[%\] |
+| Taxon (Top 8) | Relative abundance (Raven) \[%\] | Relative abundance (no assembly) \[%\] |
 |-----------------------|-----------------------|--------------------------|
 | Homo sapiens | 54 | 56 |
 | Prevotella melaninogenica | 4 | 5 |
@@ -143,7 +143,7 @@ Krona output of workflow with no assembly of sample 1:
 
 ### Sample 2
 
-Sample 2 analysis was performed with the same polishing and filtering steps as sample 1 (Porechop (adapter trimming) Fastp (discard nucleotides \<10 phred score) and a manual awk filtering). Here too an assembly with Metaflye and Raven was performed. The results showed very similar numbers and Metaflye outputs are not shown in this report (as Raven stays the most representative assembler for our samples).
+Sample 2 analysis was performed with the same polishing and filtering steps as sample 1 (Porechop (adapter trimming) Fastp (discard nucleotides \<10 phred score) and a manual awk filtering. Here too an assembly with Metaflye and Raven was performed. The results showed very similar numbers but Metaflye outputs are not shown in this report as Raven stays the most representative assembler for our samples.
 
 Quality control with `FastQC` revealed 281153 sequences (GC 41%), with low base quality in short reads. After adapter and quality filtering using `Porechop` and `Fastp`, 254349 high-quality reads (GC 41%) remained.
 
@@ -224,6 +224,15 @@ As we primarily used the parameters given via the canu faq\
 We do not recommend the use of canu, as well as the use of metaFlye for the assembly of our samples. Canu because of the time intensive assembly process as well as the need for further optimization of the parameters used. MetaFlye is not recommended, as the composition of sample 4 might be the cause of the lower quality of the assembly.\
 The filtering step prior to visualization should only be used after verification that there is no loss of important data in the resulting plots.\
 We recommend the use of workflow 2 for the classification of our sample because of the ease of use as well as the lower time and computation resources necessary to perform the classification. Using this workflow
+
+### Final sample assignment
+Sample 1: oral swab sample
+
+Sample 2: room monitoring sample
+
+Sample 3: single cultured microorganism
+
+Sample 4: ZymoBIOMICS HMW DNA standard from ZymoResearch (Cat.# D6322)
 
 \newpage
 
